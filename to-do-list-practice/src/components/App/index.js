@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import {useState} from 'react'
+import React from 'react';
 import './App.css';
+import List from '../List';
+import Input from '../Input';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const [toDos, setTodos] = useState([]);
+
+function addItem(item) {
+setTodos([...toDos, item]);
+}
+
+function removeItem(index) {
+setTodos([...toDos.slice(0, index), ...toDos.slice(index +1)])
+}
+
+  return <div className="App">
+    <Input onSubmit={addItem} />
+    <List toDos={toDos} onDelete={removeItem}/>
+  
+  </div>
 }
 
 export default App;
